@@ -10,60 +10,9 @@ KERNELDIR=$(pwd)
 export USE_CCACHE=1
 export CCACHE_DIR=~/.ccache
 
-echo "Select which device you want to build for";
-echo "1. Samsung Galaxy S8/S8+ (Exynos) (SM-G95(0/5)(N/F/FD))";
-echo "2. Samsung Galaxy Note 8 (Exynos) (SM-N950F/FD)";
-read -p "Your choice? <1> <2> > " dv
-if [ "$dv" = "1" ]; then
-     echo ""
-     echo "S8/S8+ selected"
-     export DEVICE=S8/S8+
-     echo ""
-  elif [ "$dv" = "2" -o "$dv" = "n8" ]; then
-     echo ""
-     echo "N8 selected"
-     export DEVICE=N8
-     echo ""
-  elif [ "$dv" = "" -o "$dv" = " " ]; then
-     echo "No device selected!"
-     echo "Exiting!"
-     exit 0
-fi
-
-if [ "${DEVICE}" == "S8/S8+" ]; then
-		export DEFCONFIG=dreamlte-dream2lte;
-		export AIK_S8_PATH=AIK-G950;
-		export AIK_S8p_PATH=AIK-G955;
-	elif [ "${DEVICE}" == "N8" ]; then
-		export DEFCONFIG=greatlte;
-		export AIK_N8_PATH=AIK-N950;
-	fi;
+export DEFCONFIG=dreamlte-dream2lte;
+export AIK_S8p_PATH=AIK-G955;
 	
-echo "-----------------------------------------"
-
-read -p "Type version number > " vr
-export VERSION=$vr
-if [ "$vr" = "" -o "$vr" = "exit" ]; then
-     echo ""
-     echo "No version selected!"
-     echo "Exiting now!"
-     echo ""
-     exit 0
-else
-     echo ""
-     echo "<${VERSION}> version number has been set!"
-     echo ""
-fi;
-	
-read -p "Clean source (y/n) > " yn
-if [ "$yn" = "Y" -o "$yn" = "y" ]; then
-     echo "Cleaning Source!"
-     export CLEAN=yes
-else
-     echo "Not cleaning source!"
-     export CLEAN=no
-fi
-
 export LOCALVERSION=-RAD-${VERSION}-${DATE}
 
 export ARCH=arm64
